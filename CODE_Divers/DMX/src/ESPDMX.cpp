@@ -26,8 +26,8 @@
 #define BREAKFORMAT    SERIAL_8N1
 
 bool dmxStarted = false;
-int sendPin = 29;		//29 = default on ESP32
-// Cette lib utilise Serial1. Sur ESP32, Serial 1 est sur le pin 29.
+int sendPin = 10;		//GPIO 10 - Pgysical port 29 = default on ESP32
+// Cette lib utilise Serial1. Sur ESP32, Serial 1 est sur le pin 29 - GPIO10 - D3.
 
 //DMX value array and size. Entry 0 will hold startbyte
 uint8_t dmxData[dmxMaxChannel] = {};

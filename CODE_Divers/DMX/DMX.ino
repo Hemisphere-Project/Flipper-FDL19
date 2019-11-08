@@ -2,6 +2,7 @@
 // #include <ESPDMX.h> // https://github.com/Rickgg/ESP-Dmx
 #include "src/ESPDMX.h" // To use the lib files located inside the sketch folder, not in the arduino default folder
 
+//MH ET LIVE ESP32 DEVKIT
 
 // DMX
 DMXESPSerial dmx;
@@ -10,14 +11,18 @@ DMXESPSerial dmx;
 
 
 void spot_ON(){
-  dmx.write(1, 55);
+  for (size_t i = 1; i < 6; i++) {
+    dmx.write(i, 1);
+  }
+  // dmx.write(1, 15);
   dmx.update();
-  //Serial.printf("DMX ON: 1 \n");
 }
 void spot_OFF(){
-  dmx.write(1, 0);
+  for (size_t i = 1; i < 6; i++) {
+    dmx.write(i, 0);
+  }
+  // dmx.write(1, 0);
   dmx.update();
-  //Serial.printf("DMX OFF: 1 \n");
 }
 
 
@@ -34,8 +39,8 @@ void setup() {
 void loop() {
 
   spot_ON();
-  delay(1000);
+  delay(500);
   spot_OFF();
-  delay(1000);
+  delay(500);
 
 }
