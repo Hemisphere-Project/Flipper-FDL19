@@ -81,24 +81,40 @@ void setup() {
 
 void loop() {
 
-	for (pos = 0; pos <= 180; pos += 1) { // goes from 0 degrees to 180 degrees
+	// for (pos = 0; pos <= 180; pos += 1) { // goes from 0 degrees to 180 degrees
+	// 	myservo.write(pos);    // tell servo to go to position in variable 'pos'
+	// 	delay(15);             // waits 15ms for the servo to reach the position
+	// }
+	// for (pos = 180; pos >= 0; pos -= 1) { // goes from 180 degrees to 0 degrees
+	// 	myservo.write(pos);    // tell servo to go to position in variable 'pos'
+	// 	delay(15);             // waits 15ms for the servo to reach the position
+	// }
+
+	for (pos = 0; pos <= 40; pos += 3) { // goes from 0 degrees to 180 degrees
 		myservo.write(pos);    // tell servo to go to position in variable 'pos'
 		delay(15);             // waits 15ms for the servo to reach the position
 	}
-	for (pos = 180; pos >= 0; pos -= 1) { // goes from 180 degrees to 0 degrees
+	for (pos = 40; pos >= 0; pos -= 3) { // goes from 180 degrees to 0 degrees
 		myservo.write(pos);    // tell servo to go to position in variable 'pos'
 		delay(15);             // waits 15ms for the servo to reach the position
 	}
+
+	// for (size_t i = 0; i < 100; i++) {
+	// 	musicPlayer.startPlayingFile("/track004.mp3");
+	// 	delay(100);
+	// }
 
   musicPlayer.stopPlaying();
+	delay(1000);
 	musicPlayer.startPlayingFile("/track004.mp3");
 	all_ON();
-	delay(500);
+	delay(1000);
 
 	musicPlayer.stopPlaying();
+	delay(1000);
   musicPlayer.startPlayingFile("/track002.mp3");
 	all_OFF();
-	delay(500);
+	delay(1000);
 
 }
 
