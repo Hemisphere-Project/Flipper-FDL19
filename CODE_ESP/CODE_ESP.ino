@@ -38,8 +38,17 @@ Adafruit_VS1053_FilePlayer musicPlayer = Adafruit_VS1053_FilePlayer(VS1053_RESET
 // UTILS
 int pos = 0;
 
+// DMX Adresses
+int BT_Adresses[ 7 ] = { 1, 2, 3, 4, 5, 6, 7 };
+int BR_Adresses[ 2 ] = { 8, 9 };
+int ABC_Adresses[ 8 ] = { 13, 14, 15, 16, 17, 18, 19, 20 };
+int VWX_Adresses[ 5 ] = { 32, 33, 34, 35, 36};
+int T_Adresses[ 12 ] = {45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56};
 
 
+unsigned long Tnow = 0;
+bool restart = true;
+unsigned long TstartTimeline = 0;
 
 
 void setup() {
@@ -70,60 +79,40 @@ void setup() {
 
 
 	// DMX
-	dmx.init(32);
+	dmx.init(128);
 
 	//SERVO
 	myservo.setPeriodHertz(50);
 	myservo.attach(SERVOPIN, 1000, 2500); // REGLER MIN MAX
 
+	// COM
+	pinMode(16, OUTPUT);
+
+
+
 
 }
+
+
+
+
+
+
+
 
 void loop() {
 
-	// for (pos = 0; pos <= 180; pos += 1) { // goes from 0 degrees to 180 degrees
-	// 	myservo.write(pos);    // tell servo to go to position in variable 'pos'
-	// 	delay(15);             // waits 15ms for the servo to reach the position
-	// }
-	// for (pos = 180; pos >= 0; pos -= 1) { // goes from 180 degrees to 0 degrees
-	// 	myservo.write(pos);    // tell servo to go to position in variable 'pos'
-	// 	delay(15);             // waits 15ms for the servo to reach the position
-	// }
+	Tnow = millis();
 
-	for (pos = 0; pos <= 40; pos += 3) { // goes from 0 degrees to 180 degrees
-		myservo.write(pos);    // tell servo to go to position in variable 'pos'
-		delay(15);             // waits 15ms for the servo to reach the position
-	}
-	for (pos = 40; pos >= 0; pos -= 3) { // goes from 180 degrees to 0 degrees
-		myservo.write(pos);    // tell servo to go to position in variable 'pos'
-		delay(15);             // waits 15ms for the servo to reach the position
+	if(restart==true){
+		TstartTimeline = millis();
+		VWX_Init();
+		restart = false;
 	}
 
-	// for (size_t i = 0; i < 100; i++) {
-	// 	musicPlayer.startPlayingFile("/track004.mp3");
-	// 	delay(100);
-	// }
-
-  musicPlayer.stopPlaying();
-	delay(1000);
-	musicPlayer.startPlayingFile("/track004.mp3");
-	all_ON();
-	delay(1000);
-
-	musicPlayer.stopPlaying();
-	delay(1000);
-  musicPlayer.startPlayingFile("/track002.mp3");
-	all_OFF();
-	delay(1000);
-
-}
+	BT_Update();
+	VWX_Update();
 
 
-void all_ON(){
-  for (int adress = 1; adress < 6; adress++) { dmx.write(adress, 10); }
-  dmx.update();
-}
-void all_OFF(){
-  for (int adress = 1; adress < 6; adress++) { dmx.write(adress, 0); }
-  dmx.update();
+	dmx.update();
 }
