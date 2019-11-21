@@ -1,6 +1,10 @@
 
 //MH ET LIVE ESP32 DEVKIT
+#define FLIPPER_VERSION  0.1
+#define DEBUGFLAG
 
+// DEBUG
+#include "debug.h"
 // MUSIC MAKER
 #include <SPI.h>
 #include <SD.h>
@@ -51,6 +55,9 @@ bool restart = true;
 unsigned long TstartTimeline = 0;
 
 
+bool dontPlay = false;
+
+
 void setup() {
 
 	Serial.begin(115200);
@@ -73,7 +80,7 @@ void setup() {
 
   // Set volume for left, right channels. lower numbers == louder volume!
   musicPlayer.setVolume(20,20);
-  musicPlayer.sineTest(0x44, 500);
+  // musicPlayer.sineTest(0x44, 500);
   // If DREQ is on an interrupt pin we can do background audio playing
   musicPlayer.useInterrupt(VS1053_FILEPLAYER_PIN_INT);  // DREQ int
 

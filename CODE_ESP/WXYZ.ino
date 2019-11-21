@@ -2,23 +2,22 @@
 /////////////      VWX     ///////////////
 //////////////////////////////////////////
 
-int VWX_Actions[ 5 ] = { 2000, 7000, 1000, 15000, 20000};
+int VWX_Actions[ 5 ] = { 4000, 10000, 18000, 25000, 32000};
 
 
 class VWX
 {
-	unsigned long Tlast,TlastStep;
+	unsigned long TlastStep;
 	bool is_on = false;
   int step = 0;
 	int action = 0;
 	// Timing
-	long stepTime = 100;
-  long actionLength = 1800;
+	long stepTime = 130;
+  long actionLength = 2400;
 
   // Constructor
   public:
   VWX(){
-		Tlast = 0;
     TlastStep = 0;
   }
 
@@ -31,8 +30,16 @@ class VWX
 
   void Update(){
     // ON
-    if((Tnow-TstartTimeline>VWX_Actions[action])&&(Tnow-Tlast<VWX_Actions[action]+actionLength)){
-		Serial.println("in");
+    if((Tnow-TstartTimeline>VWX_Actions[action])&&(Tnow-TstartTimeline<VWX_Actions[action]+actionLength)){
+
+			// ONCE
+			if(is_on==false){
+				musicPlayer.startPlayingFile("/VWX.mp3");
+				step = 0;
+				is_on = true;
+				dontPlay = true; //PREVENT OTHER TRACKS FROM PLAYING WHEN VWXYZ ACTIVE (BT, BR)
+			}
+			// ACT
       if(Tnow-TlastStep>stepTime){
         if(step!=0) dmx.write(VWX_Adresses[step-1], 10);
         dmx.write(VWX_Adresses[step], 0);
@@ -42,10 +49,11 @@ class VWX
       }
     }
 
-		// if((Tnow-TstartTimeline>VWX_Actions[action]+actionLength)&&(false)){
-		// 	action++;
-		// 	Serial.println(action);
-		// }
+		if((Tnow-TstartTimeline>VWX_Actions[action]+actionLength)&&(true)){
+			action++;
+			is_on = false;
+			dontPlay = false;
+		}
 
   }
 

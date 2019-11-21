@@ -29,8 +29,10 @@ class BT
 			is_on=true;
 			digitalWrite(16,HIGH);
 			dmx.write(randomBT,30);
-			String filename = "/BT"+String(randomBT)+".mp3";
-			musicPlayer.startPlayingFile(filename.c_str());
+			if(dontPlay==false){
+				String filename = "/BT"+String(randomBT)+".mp3";
+				musicPlayer.startPlayingFile(filename.c_str());
+			}
     }
     // OFF
     if((Tnow-Tlast>OffTime+OnTime)&&(is_on==true)){
