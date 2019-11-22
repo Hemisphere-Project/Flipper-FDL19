@@ -44,14 +44,16 @@ class ABC
 				step = 0;
 				is_on = true;
 			}
+			// END of audio file priority
 			if((Tnow-TstartTimeline>ABC_Actions[actionIndex]+2000)&&(dontPlay==true)){
 				dontPlay=false;
 			}
-			// ACT
+			// ACTION steps
 			if(Tnow-TlastStep>stepLength){
 				dmx.write(ABC_Adresses[step], 0);
 				step++;
 				TlastStep = Tnow;
+				// END OF ACTION
 				if(step==sizeof(ABC_Adresses)/sizeof(int)){is_on = false; actionIndex++;}
 			}
 		}

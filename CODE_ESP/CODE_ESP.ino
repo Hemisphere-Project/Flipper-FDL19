@@ -47,13 +47,14 @@ int BT_Adresses[ 7 ] = { 1, 2, 3, 4, 5, 6, 7 };
 int BR_Adresses[ 2 ] = { 8, 9 };
 int ABC_Adresses[ 8 ] = { 13, 14, 15, 16, 17, 18, 19, 20 };
 int VWX_Adresses[ 5 ] = { 32, 33, 34, 35, 36};
-int T_Adresses[ 12 ] = {45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56};
+int T_Adresses[ 12 ] = {44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55};
 
 
 unsigned long Tnow = 0;
 unsigned long TstartTimeline = 0;
+unsigned long timelineDuration = 370000;  // 6'10"
 
-bool restart = true;
+bool starting = true;
 bool dontPlay = false;
 
 
@@ -78,7 +79,7 @@ void setup() {
   Serial.println("SD OK!");
 
   // Set volume for left, right channels. lower numbers == louder volume!
-  musicPlayer.setVolume(20,20);
+  musicPlayer.setVolume(30,30);
   // musicPlayer.sineTest(0x44, 500);
   // If DREQ is on an interrupt pin we can do background audio playing
   musicPlayer.useInterrupt(VS1053_FILEPLAYER_PIN_INT);  // DREQ int
@@ -110,20 +111,22 @@ void loop() {
 
 	Tnow = millis();
 
-	if(restart==true){
+	if((starting==true)||(Tnow-TstartTimeline>timelineDuration)){
+		LOG("RELOOP");
 		TstartTimeline = millis();
-		restart = false;
-
+		starting = false;
 		VWX_restart();
 		ABC_restart();
 		BT_restart();
+		T_restart();
 
 	}
 
 	VWX_update();
 	BT_update();
 	ABC_update();
-	MOTOR_update();
+	T_update();
+	// MOTOR_update();
 
 
 

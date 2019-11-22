@@ -1,6 +1,8 @@
 
 // Backtrace: 0x400f3472:0x3ffbc040 0x400de9d3:0x3ffbc060 0x40087136:0x3ffbc080 0x40085289:0x3ffbc0a0
+// Backtrace: 0x400f34b2:0x3ffbc040 0x400dea13:0x3ffbc060 0x40087136:0x3ffbc080 0x40085289:0x3ffbc0a0
 
+// AU BOUT DE 5 MINUTES ENVIRON, BLOQUE TOUT
 
 
 //////////////////////////////////////////
@@ -11,14 +13,14 @@ class MOTOR
 {
 	int re;
   String sens = "up";
-  int period = 6000;
   bool is_on = false;
   unsigned long TlastAction, TlastStep;
   //Movement
   int posIncrement = 4;
   int stepLength = 10;
   int posDestination = 6;
-
+	//Timing
+  int period = 6000;
 
   // Constructor
   public:
