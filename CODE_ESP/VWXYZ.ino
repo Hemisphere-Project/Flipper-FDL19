@@ -43,6 +43,10 @@ class VWX
 			}
 			// ACTION steps
       if(Tnow-TlastStep>stepLength){
+				
+				// Serial.print("VWX_Actions ");	LOG(VWX_Actions[actionIndex]);
+				// Serial.print("action "); LOG(actionIndex);
+
         if(step!=0) dmx.write(VWX_Adresses[step-1], masterVWX);
         dmx.write(VWX_Adresses[step], 0);
         step++;

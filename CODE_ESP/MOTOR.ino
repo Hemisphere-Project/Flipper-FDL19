@@ -11,7 +11,6 @@
 
 class MOTOR
 {
-	int re;
   String sens = "up";
   bool is_on = false;
   unsigned long TlastAction, TlastStep;

@@ -2,7 +2,8 @@
 /////////////      ABC     ///////////////
 //////////////////////////////////////////
 
-int ABC_Actions[ 6 ] = { 0, 5000, 10000, 15000, 20000, 100000};
+// int ABC_Actions[ 6 ] = { 0, 60000, 120000, 180000, 240000, 300000};
+int ABC_Actions[ 6 ] = { 0, 3000, 6000, 9000, 12000, 15000};
 
 
 
@@ -13,7 +14,7 @@ class ABC
   int step = 0;
 	int actionIndex = 0;
 	// Timing
-	long stepLength = 500;
+	long stepLength = 100; // 7000
 	// luminosity
 	int masterABC = 30;
 
@@ -50,11 +51,20 @@ class ABC
 			}
 			// ACTION steps
 			if(Tnow-TlastStep>stepLength){
+
+				// Serial.print("ABC_Actions ");	LOG(ABC_Actions[actionIndex]);
+				// Serial.print("ABC_Actions SIZE "); LOG(sizeof(ABC_Actions)/sizeof(int));
+				// Serial.print("action "); LOG(actionIndex);
+
 				dmx.write(ABC_Adresses[step], 0);
 				step++;
 				TlastStep = Tnow;
 				// END OF ACTION
-				if(step==sizeof(ABC_Adresses)/sizeof(int)){is_on = false; actionIndex++;}
+				if(step==sizeof(ABC_Adresses)/sizeof(int)){
+					is_on = false;
+					actionIndex++;
+					// if(actionIndex<(sizeof(ABC_Actions)/sizeof(int))) actionIndex++; // MARCHE PAS
+				}
 			}
 		}
 

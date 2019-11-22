@@ -2,7 +2,7 @@
 /////////////       T      ///////////////
 //////////////////////////////////////////
 
-int T_Actions[ 6 ] = { 5000, 10000, 15000, 20000, 25000};
+int T_Actions[ 5 ] = { 5000, 10000, 15000, 20000, 25000};
 
 
 class T
@@ -37,6 +37,10 @@ class T
 
 			// ACTION steps
 			if(Tnow-TlastStep>stepLength){
+				
+				// Serial.print(Tnow-TstartTimeline);Serial.print("T_Actions ");	Serial.print(T_Actions[actionIndex]);
+				// Serial.print("action "); LOG(actionIndex);LOG(step);
+
         if(step%2==0){ // if((step==0)||(step==2)){
           for (size_t i = 0; i < sizeof(T_Adresses)/sizeof(int); i++) { dmx.write(T_Adresses[i], 0); }
         }
@@ -44,7 +48,7 @@ class T
           for (size_t i = 0; i < sizeof(T_Adresses)/sizeof(int); i++) { dmx.write(T_Adresses[i], masterT); }
         }
 				step++;
-        if(step>3){ actionIndex++; step = 0; }
+        if(step>3){ actionIndex++; step=0; }
     		TlastStep = Tnow;
 			}
 		}

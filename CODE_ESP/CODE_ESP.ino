@@ -20,8 +20,6 @@
 
 // PINS - Servo
 #define SERVOPIN			12
-// PINS - DMX
-// TXD1 ESP = D3 <---connected--->  RXD SHIELD
 // PINS - MUSIC MAKER
 #define VS1053_RESET   -1     // VS1053 reset pin (not used!)
 #define VS1053_CS      32     // VS1053 chip select pin (output)
@@ -30,6 +28,8 @@
 #define VS1053_DREQ    15     // VS1053 Data request, ideally an Interrupt pin
 // TO USE WITH ESP32 DEVKIT, CONNECT THE SCK, MOSI & MISO PINS TO THE ESP TOO
 
+// PINS - DMX
+// TXD1 ESP PIN D3 <---> RXD SHIELD
 
 
 // DMX
