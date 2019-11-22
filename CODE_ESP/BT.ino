@@ -13,6 +13,8 @@ class BT
 	long OffTime;
 	long OffTimeMin = 200;
 	long OffTimeMax = 3000;
+	// luminosity
+	int masterBT = 30;
 
   // Constructor
   public:
@@ -28,7 +30,7 @@ class BT
     if((Tnow-Tlast>OffTime)&&(is_on==false)){
 			is_on=true;
 			digitalWrite(16,HIGH);
-			dmx.write(randomBT,30);
+			dmx.write(randomBT,masterBT);
 			if(dontPlay==false){
 				String filename = "/BT"+String(randomBT)+".mp3";
 				musicPlayer.startPlayingFile(filename.c_str());

@@ -10,10 +10,12 @@ class VWX
 	unsigned long TlastStep;
 	bool is_on = false;
   int step = 0;
-	int action = 0;
+	int actionIndex = 0;
 	// Timing
-	long stepTime = 130;
+	long stepLength = 130;
   long actionLength = 2400;
+	// luminosity
+	int masterVWX = 30;
 
   // Constructor
   public:
@@ -23,15 +25,13 @@ class VWX
 
   void Init(){
     for (size_t i = 0; i < sizeof(VWX_Adresses)/sizeof(int); i++) {
-      dmx.write(VWX_Adresses[i], 10);
+      dmx.write(VWX_Adresses[i], masterVWX);
     }
   }
 
-
   void Update(){
     // ON
-    if((Tnow-TstartTimeline>VWX_Actions[action])&&(Tnow-TstartTimeline<VWX_Actions[action]+actionLength)){
-
+    if((Tnow-TstartTimeline>VWX_Actions[actionIndex])&&(Tnow-TstartTimeline<VWX_Actions[actionIndex]+actionLength)){
 			// ONCE
 			if(is_on==false){
 				musicPlayer.startPlayingFile("/VWX.mp3");
@@ -40,8 +40,8 @@ class VWX
 				dontPlay = true; //PREVENT OTHER TRACKS FROM PLAYING WHEN VWXYZ ACTIVE (BT, BR)
 			}
 			// ACT
-      if(Tnow-TlastStep>stepTime){
-        if(step!=0) dmx.write(VWX_Adresses[step-1], 10);
+      if(Tnow-TlastStep>stepLength){
+        if(step!=0) dmx.write(VWX_Adresses[step-1], masterVWX);
         dmx.write(VWX_Adresses[step], 0);
         step++;
         TlastStep = Tnow;
@@ -49,8 +49,8 @@ class VWX
       }
     }
 
-		if((Tnow-TstartTimeline>VWX_Actions[action]+actionLength)&&(true)){
-			action++;
+		if((Tnow-TstartTimeline>VWX_Actions[actionIndex]+actionLength)&&(is_on==true)){
+			actionIndex++;
 			is_on = false;
 			dontPlay = false;
 		}

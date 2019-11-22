@@ -117,8 +117,9 @@ void loop() {
 		restart = false;
 	}
 
-	BT_Update();
 	VWX_Update();
+	BT_Update();
+	ABC_Update();
 
 
 	dmx.update();
