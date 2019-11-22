@@ -24,7 +24,11 @@ class BT
 	  OffTime = random(OffTimeMin,OffTimeMax);
   }
 
-  void Update(){
+	void restart(){
+
+	}
+
+  void update(){
 
     // ON
     if((Tnow-Tlast>OffTime)&&(is_on==false)){
@@ -60,8 +64,14 @@ class BT
 BT bumpersT;
 
 
-void BT_Update(){
+void BT_update(){
 
-	  bumpersT.Update();
+	  bumpersT.update();
+
+}
+
+void BT_restart(){
+
+	  bumpersT.restart();
 
 }

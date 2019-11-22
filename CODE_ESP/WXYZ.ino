@@ -23,13 +23,13 @@ class VWX
     TlastStep = 0;
   }
 
-  void Init(){
+  void restart(){
     for (size_t i = 0; i < sizeof(VWX_Adresses)/sizeof(int); i++) {
       dmx.write(VWX_Adresses[i], masterVWX);
     }
   }
 
-  void Update(){
+  void update(){
     // ON
     if((Tnow-TstartTimeline>VWX_Actions[actionIndex])&&(Tnow-TstartTimeline<VWX_Actions[actionIndex]+actionLength)){
 			// ONCE
@@ -65,9 +65,9 @@ class VWX
 
 VWX vwxyz;
 
-void VWX_Update(){
-	  vwxyz.Update();
+void VWX_update(){
+	  vwxyz.update();
 }
-void VWX_Init(){
-	  vwxyz.Init();
+void VWX_restart(){
+	  vwxyz.restart();
 }

@@ -24,11 +24,12 @@ class ABC
 
   }
 
-  void Init(){
-
+  void restart(){
+		actionIndex = 0;
+		step = 0;
   }
 
-  void Update(){
+  void update(){
 
 		// ON
 		if(Tnow-TstartTimeline>ABC_Actions[actionIndex]){
@@ -71,9 +72,9 @@ class ABC
 
 ABC abcdefgh;
 
-void ABC_Update(){
-	  abcdefgh.Update();
+void ABC_restart(){
+	  abcdefgh.restart();
 }
-void ABC_Init(){
-	  abcdefgh.Init();
+void ABC_update(){
+	  abcdefgh.update();
 }

@@ -51,10 +51,9 @@ int T_Adresses[ 12 ] = {45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56};
 
 
 unsigned long Tnow = 0;
-bool restart = true;
 unsigned long TstartTimeline = 0;
 
-
+bool restart = true;
 bool dontPlay = false;
 
 
@@ -113,13 +112,18 @@ void loop() {
 
 	if(restart==true){
 		TstartTimeline = millis();
-		VWX_Init();
 		restart = false;
+
+		VWX_restart();
+		ABC_restart();
+		BT_restart();
+
 	}
 
-	VWX_Update();
-	BT_Update();
-	ABC_Update();
+	VWX_update();
+	BT_update();
+	ABC_update();
+
 
 
 	dmx.update();
