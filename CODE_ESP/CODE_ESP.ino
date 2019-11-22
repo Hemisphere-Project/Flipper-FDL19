@@ -123,6 +123,7 @@ void loop() {
 	VWX_update();
 	BT_update();
 	ABC_update();
+	MOTOR_update();
 
 
 
