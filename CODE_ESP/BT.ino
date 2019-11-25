@@ -35,7 +35,7 @@ class BT
 			is_on=true;
 			digitalWrite(16,HIGH);
 			dmx.write(randomBT,masterBT);
-			if(dontPlay==false){
+			if((VWX_isPlaying==false)&&(ABC_isPlaying==false)){
 				String filename = "/BT"+String(randomBT)+".mp3";
 				musicPlayer.startPlayingFile(filename.c_str());
 			}

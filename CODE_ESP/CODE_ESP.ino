@@ -55,7 +55,7 @@ unsigned long TstartTimeline = 0;
 unsigned long timelineDuration = 370000;  // 6'10"
 
 bool starting = true;
-bool dontPlay = false;
+bool ABC_isPlaying, VWX_isPlaying = false;
 
 
 void setup() {
@@ -116,8 +116,8 @@ void loop() {
 		TstartTimeline = millis();
 		starting = false;
 		VWX_restart();
-		ABC_restart();
 		BT_restart();
+		ABC_restart();
 		T_restart();
 
 	}

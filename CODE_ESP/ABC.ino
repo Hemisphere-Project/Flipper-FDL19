@@ -2,8 +2,8 @@
 /////////////      ABC     ///////////////
 //////////////////////////////////////////
 
-// int ABC_Actions[ 6 ] = { 0, 60000, 120000, 180000, 240000, 300000};
-int ABC_Actions[ 6 ] = { 0, 3000, 6000, 9000, 12000, 15000};
+int ABC_Actions[ 6 ] = { 0, 60000, 120000, 180000, 240000, 300000};
+// int ABC_Actions[ 6 ] = { 0, 4000, 8000, 12000, 16000, 20000};
 
 
 
@@ -15,8 +15,9 @@ class ABC
 	int actionIndex = 0;
 	// bool allActionsDone = false;
 	// Timing
-	long stepLength = 100; // 7000
-	int actionLength = stepLength * (sizeof(ABC_Adresses)/sizeof(int) + 1 ) ;
+	long stepLength = 7000;
+	// long stepLength = 300;
+	long actionLength = stepLength * (sizeof(ABC_Adresses)/sizeof(int) + 1 ) ;
 	// luminosity
 	int masterABC = 30;
 
@@ -39,18 +40,19 @@ class ABC
 		if((Tnow-TstartTimeline>ABC_Actions[actionIndex])&&(Tnow-TstartTimeline<ABC_Actions[actionIndex]+actionLength)){
 			// ONCE
 			if(is_on==false){
-				LOG("NEW ACTION");
 				for (size_t i = 0; i < sizeof(ABC_Adresses)/sizeof(int); i++) { dmx.write(ABC_Adresses[i], masterABC); }
 				if(actionIndex!=0){
 					musicPlayer.startPlayingFile("/RESET_PASTILLES.mp3");
-					dontPlay=true;
+					ABC_isPlaying=true;
+					Serial.print("ABC: ABC_isPlaying= "); LOG(ABC_isPlaying);
 				}
 				step = 0;
 				is_on = true;
 			}
 			// END of audio file priority
-			if((Tnow-TstartTimeline>ABC_Actions[actionIndex]+2000)&&(dontPlay==true)){
-				dontPlay=false;
+			if((Tnow-TstartTimeline>ABC_Actions[actionIndex]+2000)&&(ABC_isPlaying==true)){
+				ABC_isPlaying=false;
+				Serial.print("ABC: ABC_isPlaying= "); LOG(ABC_isPlaying);
 			}
 			// ACTION steps
 			if(Tnow-TlastStep>stepLength){
