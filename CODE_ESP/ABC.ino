@@ -13,8 +13,10 @@ class ABC
 	bool is_on = false;
   int step = 0;
 	int actionIndex = 0;
+	// bool allActionsDone = false;
 	// Timing
 	long stepLength = 100; // 7000
+	int actionLength = stepLength * (sizeof(ABC_Adresses)/sizeof(int) + 1 ) ;
 	// luminosity
 	int masterABC = 30;
 
@@ -27,17 +29,18 @@ class ABC
   void restart(){
 		actionIndex = 0;
 		step = 0;
+		// allActionsDone = false;
   }
 
   void update(){
 
 		// ON
-		if(Tnow-TstartTimeline>ABC_Actions[actionIndex]){
+		// if((Tnow-TstartTimeline>ABC_Actions[actionIndex])&&(allActionsDone==false)){
+		if((Tnow-TstartTimeline>ABC_Actions[actionIndex])&&(Tnow-TstartTimeline<ABC_Actions[actionIndex]+actionLength)){
 			// ONCE
 			if(is_on==false){
-				for (size_t i = 0; i < sizeof(ABC_Adresses)/sizeof(int); i++) {
-					dmx.write(ABC_Adresses[i], masterABC);
-				}
+				LOG("NEW ACTION");
+				for (size_t i = 0; i < sizeof(ABC_Adresses)/sizeof(int); i++) { dmx.write(ABC_Adresses[i], masterABC); }
 				if(actionIndex!=0){
 					musicPlayer.startPlayingFile("/RESET_PASTILLES.mp3");
 					dontPlay=true;
@@ -51,11 +54,7 @@ class ABC
 			}
 			// ACTION steps
 			if(Tnow-TlastStep>stepLength){
-
-				// Serial.print("ABC_Actions ");	LOG(ABC_Actions[actionIndex]);
-				// Serial.print("ABC_Actions SIZE "); LOG(sizeof(ABC_Actions)/sizeof(int));
-				// Serial.print("action "); LOG(actionIndex);
-
+				// Serial.print("action "); LOG(actionIndex); Serial.print("step "); LOG(step);
 				dmx.write(ABC_Adresses[step], 0);
 				step++;
 				TlastStep = Tnow;
@@ -63,7 +62,7 @@ class ABC
 				if(step==sizeof(ABC_Adresses)/sizeof(int)){
 					is_on = false;
 					actionIndex++;
-					// if(actionIndex<(sizeof(ABC_Actions)/sizeof(int))) actionIndex++; // MARCHE PAS
+					// if(actionIndex<(sizeof(ABC_Actions)/sizeof(int) - 1)){ actionIndex++;} else allActionsDone = true;
 				}
 			}
 		}

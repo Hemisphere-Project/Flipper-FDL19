@@ -2,7 +2,7 @@
 /////////////       T      ///////////////
 //////////////////////////////////////////
 
-int T_Actions[ 5 ] = { 5000, 10000, 15000, 20000, 25000};
+int T_Actions[ 5 ] = { 1000, 3000, 6000, 9000, 12000};
 
 
 class T
@@ -13,6 +13,7 @@ class T
 	int actionIndex = 0;
 	// Timing
 	long stepLength = 300;
+	int actionLength = 4 * stepLength;
 	// luminosity
 	int masterT = 30;
 
@@ -33,14 +34,11 @@ class T
   void update(){
 
 		// ON
-		if(Tnow-TstartTimeline>T_Actions[actionIndex]){
+		if((Tnow-TstartTimeline>T_Actions[actionIndex])&&(Tnow-TstartTimeline<T_Actions[actionIndex]+actionLength)){
 
 			// ACTION steps
 			if(Tnow-TlastStep>stepLength){
-				
-				// Serial.print(Tnow-TstartTimeline);Serial.print("T_Actions ");	Serial.print(T_Actions[actionIndex]);
-				// Serial.print("action "); LOG(actionIndex);LOG(step);
-
+				// Serial.print("action "); LOG(actionIndex); Serial.print("step "); LOG(step);
         if(step%2==0){ // if((step==0)||(step==2)){
           for (size_t i = 0; i < sizeof(T_Adresses)/sizeof(int); i++) { dmx.write(T_Adresses[i], 0); }
         }
@@ -48,8 +46,8 @@ class T
           for (size_t i = 0; i < sizeof(T_Adresses)/sizeof(int); i++) { dmx.write(T_Adresses[i], masterT); }
         }
 				step++;
-        if(step>3){ actionIndex++; step=0; }
     		TlastStep = Tnow;
+        if(step>3){ actionIndex++; step=0; }
 			}
 		}
 

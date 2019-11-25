@@ -43,7 +43,7 @@ class VWX
 			}
 			// ACTION steps
       if(Tnow-TlastStep>stepLength){
-				
+
 				// Serial.print("VWX_Actions ");	LOG(VWX_Actions[actionIndex]);
 				// Serial.print("action "); LOG(actionIndex);
 
