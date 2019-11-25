@@ -55,7 +55,7 @@ unsigned long TstartTimeline = 0;
 unsigned long timelineDuration = 370000;  // 6'10"
 
 bool starting = true;
-bool ABC_isPlaying, VWX_isPlaying = false;
+bool ABC_isPlaying, VWX_isPlaying, BR_isPlaying = false;
 
 
 void setup() {
@@ -117,6 +117,7 @@ void loop() {
 		starting = false;
 		VWX_restart();
 		BT_restart();
+		BR_restart();
 		ABC_restart();
 		T_restart();
 
@@ -124,6 +125,7 @@ void loop() {
 
 	VWX_update();
 	BT_update();
+	BR_update();
 	ABC_update();
 	T_update();
 	// MOTOR_update();

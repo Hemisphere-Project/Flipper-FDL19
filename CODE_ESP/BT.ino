@@ -9,7 +9,7 @@ class BT
 	unsigned long Tlast;
 	bool is_on = false;
 	// Timing
-	long OnTime = 300;
+	long OnTime = 150;
 	long OffTime;
 	long OffTimeMin = 200;
 	long OffTimeMax = 3000;
@@ -35,7 +35,7 @@ class BT
 			is_on=true;
 			digitalWrite(16,HIGH);
 			dmx.write(randomBT,masterBT);
-			if((VWX_isPlaying==false)&&(ABC_isPlaying==false)){
+			if((VWX_isPlaying==false)&&(ABC_isPlaying==false)&&(BR_isPlaying==false)){
 				String filename = "/BT"+String(randomBT)+".mp3";
 				musicPlayer.startPlayingFile(filename.c_str());
 			}
