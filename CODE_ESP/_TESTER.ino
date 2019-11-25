@@ -1,0 +1,74 @@
+// BUG avec le white decoder
+// frames stacked
+
+int master = 30;
+
+void testAll(){
+
+  // ALL OFF
+  for (size_t i = 0; i < 128; i++) { dmx.write(i,0); }
+
+  dmx.update();
+  delay(300);
+  dmx.write(100, 100);  dmx.update();
+  delay(3000);
+
+
+
+  // ABC
+  musicPlayer.startPlayingFile("/RESET_PASTILLES.mp3");
+  for (size_t i = 0; i < sizeof(ABC_Adresses)/sizeof(int); i++) {
+    dmx.write(ABC_Adresses[i], master);
+    dmx.update();
+    delay(200);
+  }
+  delay(5000);
+
+  // BT
+  for (size_t i = 0; i < sizeof(BT_Adresses)/sizeof(int); i++) {
+    String filename = "/BT"+String(i)+".mp3";
+    musicPlayer.startPlayingFile(filename.c_str());
+    dmx.write(BT_Adresses[i], master);
+    dmx.update();
+    delay(1000);
+  }
+  delay(1000);
+
+  // BR
+  for (size_t i = 0; i < sizeof(BR_Adresses)/sizeof(int); i++) {
+    musicPlayer.startPlayingFile("/BR.mp3");
+    dmx.write(BR_Adresses[i], master);
+    dmx.update();
+    delay(1500);
+  }
+  delay(1000);
+
+  // VWX
+  musicPlayer.startPlayingFile("/VWX.mp3");
+  for (size_t i = 0; i < sizeof(VWX_Adresses)/sizeof(int); i++) {
+    dmx.write(VWX_Adresses[i], master);
+    dmx.update();
+    delay(200);
+  }
+  delay(1000);
+
+  for (size_t i = 0; i < sizeof(T_Adresses)/sizeof(int); i++) {
+    dmx.write(T_Adresses[i], master);
+    dmx.update();
+    delay(50);
+  }
+  delay(1000);
+
+  for (pos = 0; pos <= 40; pos += 2) { // goes from 0 degrees to 180 degrees
+    myservo.write(pos);    // tell servo to go to position in variable 'pos'
+    delay(15);             // waits 15ms for the servo to reach the position
+  }
+  for (pos = 40; pos >= 0; pos -= 2) { // goes from 180 degrees to 0 degrees
+    myservo.write(pos);    // tell servo to go to position in variable 'pos'
+    delay(15);             // waits 15ms for the servo to reach the position
+  }
+
+
+  delay(2000);
+
+}

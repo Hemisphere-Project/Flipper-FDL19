@@ -6,6 +6,7 @@
 //MH ET LIVE ESP32 DEVKIT
 #define FLIPPER_VERSION  0.1
 #define DEBUGFLAG
+#define TESTFLAG
 
 // DEBUG
 #include "debug.h"
@@ -91,7 +92,6 @@ void setup() {
 
   // Set volume for left, right channels. lower numbers == louder volume!
   musicPlayer.setVolume(30,30);
-  // musicPlayer.sineTest(0x44, 500);
   // If DREQ is on an interrupt pin we can do background audio playing
   musicPlayer.useInterrupt(VS1053_FILEPLAYER_PIN_INT);  // DREQ int
 
@@ -117,6 +117,11 @@ void setup() {
 void loop() {
 
 	Tnow = millis();
+
+	#ifdef DEBUGFLAG
+		testAll();
+		return;
+	#endif
 
 	if((starting==true)||(Tnow-TstartTimeline>timelineDuration)){
 		LOG("RELOOP");
@@ -146,17 +151,7 @@ void loop() {
 		BT_forceOff();
 	}
 
-
-	if( ((Tnow-TstartTimeline>1000)&&(Tnow-TstartTimeline<20000))){
-		BT_update(1000,4000);
-	}
-	else if((Tnow-TstartTimeline>22000)&&(Tnow-TstartTimeline<360000)){
-		BT_update(200,1000);
-	}else{
-		BT_forceOff();
-	}
-
-	// MOTOR_update();
+	MOTOR_update();
 
 
 

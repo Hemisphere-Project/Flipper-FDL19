@@ -15,9 +15,9 @@ class MOTOR
   bool is_on = false;
   unsigned long TlastAction, TlastStep;
   //Movement
-  int posIncrement = 4;
+  int posIncrement = 3;
   int stepLength = 10;
-  int posDestination = 6;
+  int posDestination = 40;
 	//Timing
   int period = 6000;
 
@@ -41,12 +41,14 @@ class MOTOR
       if((sens=="up")&&(Tnow-TlastStep>stepLength)){
         pos += posIncrement;
         myservo.write(pos);
+        // LOGINL("up");LOG(pos);
         TlastStep = Tnow;
         if(pos>posDestination) sens="down";
       }
       if((sens=="down")&&(Tnow-TlastStep>stepLength)){
         pos -= posIncrement;
         myservo.write(pos);
+        // LOGINL("down");LOG(pos);
         TlastStep = Tnow;
         if(pos<0) {sens="up"; TlastAction=Tnow; is_on=false;}
       }
