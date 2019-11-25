@@ -1,4 +1,8 @@
 
+//////////////////////////////////////////
+/////////////     LIBS     ///////////////
+//////////////////////////////////////////
+
 //MH ET LIVE ESP32 DEVKIT
 #define FLIPPER_VERSION  0.1
 #define DEBUGFLAG
@@ -17,6 +21,9 @@
 // SERVO
 #include <ESP32Servo.h>
 
+//////////////////////////////////////////
+/////////////    GLOBAL    ///////////////
+//////////////////////////////////////////
 
 // PINS - Servo
 #define SERVOPIN			12
@@ -57,6 +64,10 @@ unsigned long timelineDuration = 370000;  // 6'10"
 bool starting = true;
 bool ABC_isPlaying, VWX_isPlaying, BR_isPlaying = false;
 
+//////////////////////////////////////////
+/////////////     SETUP    ///////////////
+//////////////////////////////////////////
+
 
 void setup() {
 
@@ -95,15 +106,11 @@ void setup() {
 	// COM
 	pinMode(16, OUTPUT);
 
-
-
-
 }
 
-
-
-
-
+//////////////////////////////////////////
+/////////////     LOOP     ///////////////
+//////////////////////////////////////////
 
 
 
@@ -120,14 +127,35 @@ void loop() {
 		BR_restart();
 		ABC_restart();
 		T_restart();
-
 	}
 
 	VWX_update();
-	BT_update();
 	BR_update();
 	ABC_update();
 	T_update();
+
+	if((Tnow-TstartTimeline>15000)&&(Tnow-TstartTimeline<249000)){
+		BT_update(1000,4000);
+	}
+	else if((Tnow-TstartTimeline>267000)&&(Tnow-TstartTimeline<342000)){
+		BT_update(1000,4000);
+	}
+	else if((Tnow-TstartTimeline>342000)&&(Tnow-TstartTimeline<360000)){
+		BT_update(200,1000);
+	}else{
+		BT_forceOff();
+	}
+
+
+	if( ((Tnow-TstartTimeline>1000)&&(Tnow-TstartTimeline<20000))){
+		BT_update(1000,4000);
+	}
+	else if((Tnow-TstartTimeline>22000)&&(Tnow-TstartTimeline<360000)){
+		BT_update(200,1000);
+	}else{
+		BT_forceOff();
+	}
+
 	// MOTOR_update();
 
 

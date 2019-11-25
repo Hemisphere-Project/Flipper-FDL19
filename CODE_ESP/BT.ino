@@ -5,14 +5,14 @@
 class BT
 {
 	int randomIndex;
-	int randomBT;
+	int randomBT = BT_Adresses[0];
 	unsigned long Tlast;
 	bool is_on = false;
 	// Timing
-	long OnTime = 150;
-	long OffTime;
-	long OffTimeMin = 200;
-	long OffTimeMax = 3000;
+	int OnTime = 150;
+	int OffTime = 1000;
+	// int OffTimeMin = 200;
+	// int OffTimeMax = 3000;
 	// luminosity
 	int masterBT = 30;
 
@@ -21,14 +21,13 @@ class BT
   BT(){
 		randomIndex = 0;
 		Tlast = 0;
-	  OffTime = random(OffTimeMin,OffTimeMax);
   }
 
 	void restart(){
 
 	}
 
-  void update(){
+  void update(int OffTimeMin,int OffTimeMax){
 
     // ON
     if((Tnow-Tlast>OffTime)&&(is_on==false)){
@@ -54,6 +53,12 @@ class BT
 
   }
 
+	void forceOff(){
+		is_on=false;
+		digitalWrite(16,LOW);
+		dmx.write(randomBT,0);
+	}
+
 };
 
 //////////////////////////////////////////
@@ -63,15 +68,13 @@ class BT
 
 BT bumpersT;
 
-
-void BT_update(){
-
-	  bumpersT.update();
-
+void BT_update(int offMin,int offMax){
+  bumpersT.update(offMin, offMax);
 }
 
 void BT_restart(){
-
-	  bumpersT.restart();
-
+  bumpersT.restart();
+}
+void BT_forceOff(){
+  bumpersT.forceOff();
 }

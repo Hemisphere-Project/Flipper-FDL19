@@ -37,7 +37,6 @@ class bmpR
     if((Tnow-TstartTimeline>BR_Actions[actionIndex])&&(Tnow-TstartTimeline<BR_Actions[actionIndex]+actionLength)){
       // BEGIN
       if(is_on==false){
-          LOG("Action");
           step=0;
           ran = random(0,2);
           musicPlayer.startPlayingFile("/BR.mp3");
