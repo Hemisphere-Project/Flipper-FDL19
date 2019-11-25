@@ -41,7 +41,6 @@ class VWX
 				step = 0;
 				is_on = true;
 				VWX_isPlaying = true; //PREVENT OTHER TRACKS FROM PLAYING WHEN VWXYZ ACTIVE (BT, BR)
-				Serial.print("WXYZ: VWX_isPlaying= "); LOG(VWX_isPlaying);
 			}
 			// ACTION steps
       if(Tnow-TlastStep>stepLength){
@@ -58,7 +57,6 @@ class VWX
 			actionIndex++;
 			is_on = false;
 			VWX_isPlaying = false;
-			Serial.print("WXYZ: VWX_isPlaying= "); LOG(VWX_isPlaying);
 		}
 
   }

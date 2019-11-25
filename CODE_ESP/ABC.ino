@@ -44,7 +44,6 @@ class ABC
 				if(actionIndex!=0){
 					musicPlayer.startPlayingFile("/RESET_PASTILLES.mp3");
 					ABC_isPlaying=true;
-					Serial.print("ABC: ABC_isPlaying= "); LOG(ABC_isPlaying);
 				}
 				step = 0;
 				is_on = true;
@@ -52,7 +51,6 @@ class ABC
 			// END of audio file priority
 			if((Tnow-TstartTimeline>ABC_Actions[actionIndex]+2000)&&(ABC_isPlaying==true)){
 				ABC_isPlaying=false;
-				Serial.print("ABC: ABC_isPlaying= "); LOG(ABC_isPlaying);
 			}
 			// ACTION steps
 			if(Tnow-TlastStep>stepLength){
