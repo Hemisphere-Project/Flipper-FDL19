@@ -42,6 +42,7 @@ class ABC
 			if(is_on==false){
 				for (size_t i = 0; i < sizeof(ABC_Adresses)/sizeof(int); i++) { dmx.write(ABC_Adresses[i], masterABC); }
 				if(actionIndex!=0){
+					musicPlayer.stopPlaying();
 					musicPlayer.startPlayingFile("/RESET_PASTILLES.mp3");
 					ABC_isPlaying=true;
 				}

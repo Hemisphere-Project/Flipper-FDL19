@@ -14,6 +14,7 @@ void testAll(){
 
 
   // ABC
+  musicPlayer.stopPlaying();
   musicPlayer.startPlayingFile("/RESET_PASTILLES.mp3");
   for (size_t i = 0; i < sizeof(ABC_Adresses)/sizeof(int); i++) {
     dmx.write(ABC_Adresses[i], master);
@@ -25,6 +26,7 @@ void testAll(){
   // BT
   for (size_t i = 0; i < sizeof(BT_Adresses)/sizeof(int); i++) {
     String filename = "/BT"+String(i+1)+".mp3";
+    musicPlayer.stopPlaying();
     musicPlayer.startPlayingFile(filename.c_str());
     dmx.write(BT_Adresses[i], master);
     dmx.update(); pushData();
@@ -34,6 +36,7 @@ void testAll(){
 
   // BR
   for (size_t i = 0; i < sizeof(BR_Adresses)/sizeof(int); i++) {
+    musicPlayer.stopPlaying();
     musicPlayer.startPlayingFile("/BR.mp3");
     dmx.write(BR_Adresses[i], master);
     dmx.update(); pushData();
@@ -42,6 +45,7 @@ void testAll(){
   delay(1000);
 
   // VWX
+  musicPlayer.stopPlaying();
   musicPlayer.startPlayingFile("/VWX.mp3");
   for (size_t i = 0; i < sizeof(VWX_Adresses)/sizeof(int); i++) {
     dmx.write(VWX_Adresses[i], master);

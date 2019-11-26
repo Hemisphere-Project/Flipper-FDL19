@@ -19,7 +19,7 @@ class MOTOR
   int stepLength = 10;
   int posDestination = 40;
 	//Timing
-  int period = 6000;
+  int period = 14000;
 
   // Constructor
   public:

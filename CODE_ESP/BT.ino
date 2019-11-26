@@ -9,7 +9,7 @@ class BT
 	unsigned long Tlast;
 	bool is_on = false;
 	// Timing
-	int OnTime = 150;
+	int OnTime = 250;
 	int OffTime = 1000;
 	// int OffTimeMin = 200;
 	// int OffTimeMax = 3000;
@@ -32,17 +32,16 @@ class BT
     // ON
     if((Tnow-Tlast>OffTime)&&(is_on==false)){
 			is_on=true;
-			digitalWrite(16,HIGH);
 			dmx.write(randomBT,masterBT);
 			if((VWX_isPlaying==false)&&(ABC_isPlaying==false)&&(BR_isPlaying==false)){
 				String filename = "/BT"+String(randomBT)+".mp3";
+				musicPlayer.stopPlaying();
 				musicPlayer.startPlayingFile(filename.c_str());
 			}
     }
     // OFF
     if((Tnow-Tlast>OffTime+OnTime)&&(is_on==true)){
 			is_on=false;
-			digitalWrite(16,LOW);
 			dmx.write(randomBT,0);
 			// NEXT
 			Tlast = Tnow;
@@ -55,7 +54,6 @@ class BT
 
 	void forceOff(){
 		is_on=false;
-		digitalWrite(16,LOW);
 		dmx.write(randomBT,0);
 	}
 

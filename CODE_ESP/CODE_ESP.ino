@@ -6,7 +6,7 @@
 //MH ET LIVE ESP32 DEVKIT
 #define FLIPPER_VERSION  0.1
 #define DEBUGFLAG
-#define TESTFLAG
+// #define TESTFLAG
 
 // DEBUG
 #include "debug.h"
@@ -118,7 +118,7 @@ void loop() {
 
 	Tnow = millis();
 
-	#ifdef DEBUGFLAG
+	#ifdef TESTFLAG
 		testAll();
 		return;
 	#endif
@@ -138,22 +138,23 @@ void loop() {
 	BR_update();
 	ABC_update();
 	T_update();
+	MOTOR_update();
+	rpi_Update();
 
+	// if((Tnow-TstartTimeline>100)&&(Tnow-TstartTimeline<449000)){
+	// 	BT_update(300,400);
+	// }
 	if((Tnow-TstartTimeline>15000)&&(Tnow-TstartTimeline<249000)){
-		BT_update(1000,4000);
+		BT_update(300,4000);
 	}
 	else if((Tnow-TstartTimeline>267000)&&(Tnow-TstartTimeline<342000)){
-		BT_update(1000,4000);
+		BT_update(300,4000);
 	}
 	else if((Tnow-TstartTimeline>342000)&&(Tnow-TstartTimeline<360000)){
 		BT_update(200,1000);
 	}else{
 		BT_forceOff();
 	}
-
-	MOTOR_update();
-
-
 
 	dmx.update();
 }

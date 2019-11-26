@@ -37,6 +37,7 @@ class VWX
     if((Tnow-TstartTimeline>VWX_Actions[actionIndex])&&(Tnow-TstartTimeline<VWX_Actions[actionIndex]+actionLength)){
 			// ONCE - BEGIN OF ACTION
 			if(is_on==false){
+				musicPlayer.stopPlaying();
 				musicPlayer.startPlayingFile("/VWX.mp3");
 				step = 0;
 				is_on = true;
