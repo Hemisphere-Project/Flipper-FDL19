@@ -10,17 +10,23 @@
 
 // DEBUG
 #include "debug.h"
+
 // MUSIC MAKER
 #include <SPI.h>
 #include <SD.h>
-// #include "src/Adafruit_VS1053/Adafruit_VS1053.h" // https://github.com/danclarke/Adafruit_VS1053_Library
-#include <Adafruit_VS1053.h> // Crash because Library doesn't support interrupts for ESP32
-// Good LIB de danclarke sur github mise à la place de celle d'adafruit dans documents/Arduino/libraries car sinon marche Pas... WHAT THE FUCK ?
+#include <Adafruit_VS1053.h>
+// https://github.com/danclarke/Adafruit_VS1053_Library
+// an update of the Adafruit VS1053 Library for ESP32 with Interrupt support
+// (The original one crash because Library doesn't support interrupts for ESP32)
+// Good LIB de danclarke from github mise à la place de celle d'adafruit dans documents/Arduino/libraries
+// DON'T WORK IF PLACED OUTSIDE OF ARDUINO/LIBRARIES Official folder. WHY ?
 
 // DMX
 #include "src/ESPDMX/ESPDMX.h"
+
 // SERVO
 #include <ESP32Servo.h>
+// DON'T WORK IF PLACED OUTSIDE OF ARDUINO/LIBRARIES Official folder. WHY ?
 
 //////////////////////////////////////////
 /////////////    GLOBAL    ///////////////
