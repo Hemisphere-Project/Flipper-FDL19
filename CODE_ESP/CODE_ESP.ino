@@ -144,7 +144,7 @@ void loop() {
 	BR_update();
 	ABC_update();
 	T_update();
-	// MOTOR_update();
+	MOTOR_update();
 	rpi_Update();
 
 	// if((Tnow-TstartTimeline>100)&&(Tnow-TstartTimeline<449000)){
