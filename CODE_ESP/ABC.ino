@@ -20,6 +20,8 @@ class ABC
 	long actionLength = stepLength * (sizeof(ABC_Adresses)/sizeof(int) + 1 ) ;
 	// luminosity
 	int masterABC = 30;
+	// for fadeout
+	float masterValue = masterABC;
 
   // Constructor
   public:
@@ -31,6 +33,7 @@ class ABC
 		actionIndex = 0;
 		step = 0;
 		// allActionsDone = false;
+		masterValue = masterABC;
   }
 
   void update(){
@@ -68,8 +71,14 @@ class ABC
 			}
 		}
 
-
   }
+
+	void fadeout(){
+		if(masterValue>=0){
+			masterValue = masterValue - 0.5;
+			for (size_t i = 0; i < sizeof(ABC_Adresses)/sizeof(int); i++) { dmx.write(ABC_Adresses[i], int(masterValue)); }
+		}
+	}
 
 };
 
@@ -80,8 +89,11 @@ class ABC
 ABC abcdefgh;
 
 void ABC_restart(){
-	  abcdefgh.restart();
+	abcdefgh.restart();
 }
 void ABC_update(){
-	  abcdefgh.update();
+	abcdefgh.update();
+}
+void ABC_fadeout(){
+	abcdefgh.fadeout();
 }

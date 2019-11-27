@@ -109,8 +109,9 @@ void setup() {
 	myservo.setPeriodHertz(50);
 	myservo.attach(SERVOPIN, 1000, 2500); // REGLER MIN MAX
 
-	// COM
+	// COM RPI
 	pinMode(16, OUTPUT);
+	digitalWrite(16,HIGH);
 
 }
 
@@ -129,6 +130,7 @@ void loop() {
 		return;
 	#endif
 
+	// RELOOP
 	if((starting==true)||(Tnow-TstartTimeline>timelineDuration)){
 		LOG("RELOOP");
 		TstartTimeline = millis();
@@ -140,15 +142,27 @@ void loop() {
 		T_restart();
 	}
 
+	// END - FADE OUT
+	if(Tnow-TstartTimeline>360000){
+		VWX_fadeout();
+		ABC_fadeout();
+		T_fadeout();
+		BR_forceOff();
+		BT_forceOff();
+		dmx.update();
+		return;
+	}
+
+	// NORMAL
 	VWX_update();
 	BR_update();
 	ABC_update();
 	T_update();
-	MOTOR_update();
+	// MOTOR_update();
 	rpi_Update();
 
-	// if((Tnow-TstartTimeline>100)&&(Tnow-TstartTimeline<449000)){
-	// 	BT_update(300,400);
+	// if((Tnow-TstartTimeline>100)&&(Tnow-TstartTimeline<35000)){
+	// 	BT_update(300,4000);
 	// }
 	if((Tnow-TstartTimeline>15000)&&(Tnow-TstartTimeline<249000)){
 		BT_update(300,4000);
@@ -161,6 +175,7 @@ void loop() {
 	}else{
 		BT_forceOff();
 	}
-
 	dmx.update();
+
+
 }

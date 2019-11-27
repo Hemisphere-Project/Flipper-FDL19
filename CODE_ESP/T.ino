@@ -17,6 +17,8 @@ class T
 	int actionLength = 4 * stepLength;
 	// luminosity
 	int masterT = 30;
+	// for fadeout
+	float masterValue = masterT;
 
   // Constructor
   public:
@@ -30,6 +32,7 @@ class T
     for (size_t i = 0; i < sizeof(T_Adresses)/sizeof(int); i++) {
       dmx.write(T_Adresses[i], masterT);
     }
+		masterValue = masterT;
   }
 
   void update(){
@@ -54,6 +57,13 @@ class T
 
   }
 
+	void fadeout(){
+		if(masterValue>=0){
+			masterValue = masterValue - 0.5;
+			for (size_t i = 0; i < sizeof(T_Adresses)/sizeof(int); i++) { dmx.write(T_Adresses[i], int(masterValue)); }
+		}
+	}
+
 };
 
 //////////////////////////////////////////
@@ -63,8 +73,11 @@ class T
 T tete;
 
 void T_restart(){
-	  tete.restart();
+	tete.restart();
 }
 void T_update(){
-	  tete.update();
+	tete.update();
+}
+void T_fadeout(){
+	tete.fadeout();
 }

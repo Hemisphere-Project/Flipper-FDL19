@@ -17,6 +17,8 @@ class VWX
   long actionLength = 2400;
 	// luminosity
 	int masterVWX = 30;
+	// for fadeout
+	float masterValue = masterVWX;
 
   // Constructor
   public:
@@ -30,6 +32,7 @@ class VWX
     for (size_t i = 0; i < sizeof(VWX_Adresses)/sizeof(int); i++) {
       dmx.write(VWX_Adresses[i], masterVWX);
     }
+		masterValue = masterVWX;
   }
 
   void update(){
@@ -62,6 +65,13 @@ class VWX
 
   }
 
+	void fadeout(){
+		if(masterValue>=0){
+			masterValue = masterValue - 0.5;
+			for (size_t i = 0; i < sizeof(VWX_Adresses)/sizeof(int); i++) { dmx.write(VWX_Adresses[i], int(masterValue)); }
+		}
+	}
+
 };
 
 //////////////////////////////////////////
@@ -75,4 +85,7 @@ void VWX_update(){
 }
 void VWX_restart(){
 	  vwxyz.restart();
+}
+void VWX_fadeout(){
+	  vwxyz.fadeout();
 }

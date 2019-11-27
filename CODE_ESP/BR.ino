@@ -61,6 +61,10 @@ class bmpR
       }
     }
   }
+	void force0ff(){
+		is_on=false;
+		dmx.write(BR_Adresses[ran],0);
+	}
 
 };
 
@@ -71,8 +75,11 @@ class bmpR
 bmpR bumpersR;
 
 void BR_restart(){
-	  bumpersR.restart();
+	bumpersR.restart();
 }
 void BR_update(){
-	  bumpersR.update();
+	bumpersR.update();
+}
+void BR_forceOff(){
+  bumpersR.force0ff();
 }
