@@ -57,13 +57,13 @@ class MOTOR
       }
       if((sens=="up")&&(Tnow-TlastStep>stepLength)){
         pos += posIncrement;
-        myservo.write(pos);
+        MOTOR_pos(pos, true);
         TlastStep = Tnow;
         if(pos>posDestination) sens="down";
       }
       if((sens=="down")&&(Tnow-TlastStep>stepLength)){
         pos -= posIncrement;
-        myservo.write(pos);
+        MOTOR_pos(pos, true);
         TlastStep = Tnow;
         // Reloop
         if((pos<0)&&(step<numberOfMovements)){ sens="up"; step++; playSound = true; }
@@ -71,9 +71,6 @@ class MOTOR
         if((pos<0)&&(step==numberOfMovements)) { TlastAction=Tnow; is_on=false; }
       }
     }
-
-
-
   }
 
 };
@@ -84,10 +81,36 @@ class MOTOR
 
 
 MOTOR mymotor;
-
+int motorPosition = 0;
 
 void MOTOR_update(){
-
 	  mymotor.update();
+}
 
+// called by xTaskCreate (to run on core0)
+void MOTOR_asyncPos(void * data) {
+  int position = *(int *) data;
+  myservo.write(position);
+  // Serial.println("motor pos 2");
+  vTaskDelete( NULL );
+}
+
+// Set Motor position, if newtask is TRUE > use a separate Task on Core0
+void MOTOR_pos(int position, bool newtask){
+  // Serial.println("motor pos 1");
+  motorPosition = position;
+  if (!newtask) myservo.write(position);
+  else xTaskCreatePinnedToCore(
+                  MOTOR_asyncPos,   /* Function to implement the task */
+                  "motorTask", /* Name of the task */
+                  10000,      /* Stack size in words */
+                  &motorPosition,       /* Task input parameter */
+                  10,          /* Priority of the task */
+                  NULL,       /* Task handle. */
+                  0);         /* Core where the task should run */
+}
+
+// Set Motor position (do not use separate Task)
+void MOTOR_pos(int position){
+  MOTOR_pos(position, false);
 }

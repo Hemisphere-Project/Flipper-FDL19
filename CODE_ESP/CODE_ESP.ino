@@ -66,7 +66,7 @@ int T_Adresses[ 12 ] = {44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55};
 
 unsigned long Tnow = 0;
 unsigned long TstartTimeline = 0;
-unsigned long timelineDuration = 370000;  // 6'10"
+unsigned long timelineDuration = 370000;  // 6'10" = 370000
 
 bool starting = true;
 bool ABC_isPlaying, VWX_isPlaying, BR_isPlaying = false;
@@ -111,7 +111,7 @@ void setup() {
 
 	// COM RPI
 	pinMode(16, OUTPUT);
-	digitalWrite(16,HIGH);
+	digitalWrite(16,LOW);
 
 }
 
@@ -158,7 +158,7 @@ void loop() {
 	BR_update();
 	ABC_update();
 	T_update();
-	// MOTOR_update();
+	MOTOR_update();
 	rpi_Update();
 
 	// if((Tnow-TstartTimeline>100)&&(Tnow-TstartTimeline<35000)){
