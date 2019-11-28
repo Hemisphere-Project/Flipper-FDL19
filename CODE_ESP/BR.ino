@@ -14,7 +14,7 @@ class bmpR
   int step = 0;
   int ran;
 	// luminosity
-	int masterBR = 30;
+	int masterBR = 255;
   // Timing
   long stepLength = 70;
   long actionLength = 1200;

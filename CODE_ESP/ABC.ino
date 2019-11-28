@@ -19,7 +19,7 @@ class ABC
 	// long stepLength = 300;
 	long actionLength = stepLength * (sizeof(ABC_Adresses)/sizeof(int) + 1 ) ;
 	// luminosity
-	int masterABC = 30;
+	int masterABC = 255;
 	// for fadeout
 	float masterValue = masterABC;
 
@@ -75,7 +75,8 @@ class ABC
 
 	void fadeout(){
 		if(masterValue>=0){
-			masterValue = masterValue - 0.5;
+			masterValue = masterValue - 1;
+			if(masterValue<0) masterValue = 1;
 			for (size_t i = 0; i < sizeof(ABC_Adresses)/sizeof(int); i++) { dmx.write(ABC_Adresses[i], int(masterValue)); }
 		}
 	}

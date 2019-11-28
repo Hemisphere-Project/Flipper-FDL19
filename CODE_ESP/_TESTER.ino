@@ -1,7 +1,7 @@
 // BUG avec le white decoder
 // frames stacked
 
-int master = 30;
+int master = 255;
 
 void testAll(){
 

@@ -16,7 +16,7 @@ class T
 	long stepLength = 300;
 	int actionLength = 4 * stepLength;
 	// luminosity
-	int masterT = 30;
+	int masterT = 255;
 	// for fadeout
 	float masterValue = masterT;
 
@@ -59,7 +59,8 @@ class T
 
 	void fadeout(){
 		if(masterValue>=0){
-			masterValue = masterValue - 0.5;
+			masterValue = masterValue - 1;
+			if(masterValue<0) masterValue = 1;
 			for (size_t i = 0; i < sizeof(T_Adresses)/sizeof(int); i++) { dmx.write(T_Adresses[i], int(masterValue)); }
 		}
 	}

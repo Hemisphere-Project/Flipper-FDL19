@@ -2,7 +2,7 @@
 /////////////      VWX     ///////////////
 //////////////////////////////////////////
 
-int VWX_Actions[ 10 ] = { 30000, 90000, 150000, 210000, 270000, 330000, 342000,346000,350000,354000 };
+int VWX_Actions[ 11 ] = { 30000, 90000, 150000, 210000, 270000, 330000, 342000, 346000, 349000, 352000, 355000 };
 // int VWX_Actions[ 5 ] = { 4000, 10000, 18000, 25000, 32000};
 
 
@@ -16,7 +16,7 @@ class VWX
 	long stepLength = 130;
   long actionLength = 2400;
 	// luminosity
-	int masterVWX = 30;
+	int masterVWX = 255;
 	// for fadeout
 	float masterValue = masterVWX;
 
@@ -67,7 +67,8 @@ class VWX
 
 	void fadeout(){
 		if(masterValue>=0){
-			masterValue = masterValue - 0.5;
+			masterValue = masterValue - 1;
+			if(masterValue<0) masterValue = 1;
 			for (size_t i = 0; i < sizeof(VWX_Adresses)/sizeof(int); i++) { dmx.write(VWX_Adresses[i], int(masterValue)); }
 		}
 	}

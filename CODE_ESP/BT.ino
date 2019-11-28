@@ -14,7 +14,7 @@ class BT
 	// int OffTimeMin = 200;
 	// int OffTimeMax = 3000;
 	// luminosity
-	int masterBT = 30;
+	int masterBT = 255;
 
   // Constructor
   public:

@@ -61,17 +61,17 @@ int BT_Adresses[ 7 ] = { 1, 2, 3, 4, 5, 6, 7 };
 int BR_Adresses[ 2 ] = { 8, 9 };
 int VWX_Adresses[ 5 ] = { 10, 11, 12, 13, 14};
 int ABC_Adresses[ 8 ] = { 16, 17, 18, 19, 20, 21, 22, 23 };
-int T_Adresses[ 7 ] = {32, 33, 34, 35, 36, 37, 38};
+int T_Adresses[ 8 ] = { 32, 35, 38, 41, 44, 47, 50, 53 };
 
 // SOUND
-int masterVol = 40;
+int masterVol = 5;
 
 unsigned long Tnow = 0;
 unsigned long TstartTimeline = 0;
 unsigned long timelineDuration = 370000;  // 6'10" = 370000
 
 bool starting = true;
-bool ABC_isPlaying, VWX_isPlaying, BR_isPlaying, BT_isPlaying = false;
+bool ABC_isPlaying, VWX_isPlaying, BR_isPlaying, BT_isPlaying, No_One_Plays, = false;
 
 //////////////////////////////////////////
 /////////////     SETUP    ///////////////
@@ -99,7 +99,7 @@ void setup() {
   Serial.println("SD OK!");
 
   // Set volume for left, right channels. lower numbers == louder volume!
-  musicPlayer.setVolume(30,30);
+  musicPlayer.setVolume(masterVol,masterVol);
   // If DREQ is on an interrupt pin we can do background audio playing
   musicPlayer.useInterrupt(VS1053_FILEPLAYER_PIN_INT);  // DREQ int
 
@@ -145,7 +145,7 @@ void loop() {
 	}
 
 	// END - FADE OUT
-	if(Tnow-TstartTimeline>360000){
+	if(Tnow-TstartTimeline>360000){// 360000
 		VWX_fadeout();
 		ABC_fadeout();
 		T_fadeout();
@@ -163,7 +163,7 @@ void loop() {
 	MOTOR_update();
 	rpi_Update();
 
-	// if((Tnow-TstartTimeline>100)&&(Tnow-TstartTimeline<35000)){
+	// if((Tnow-TstartTimeline>100)&&(Tnow-TstartTimeline<10000)){
 	// 	BT_update(300,4000);
 	// }
 	if((Tnow-TstartTimeline>15000)&&(Tnow-TstartTimeline<249000)){
@@ -177,6 +177,8 @@ void loop() {
 	}else{
 		BT_forceOff();
 	}
+
+
 	dmx.update();
 
 
