@@ -40,7 +40,7 @@ class bmpR
           step=0;
           ran = random(0,2);
 					musicPlayer.stopPlaying();
-          musicPlayer.startPlayingFile("/BR.mp3");
+					musicPlayer.startPlayingFile("/BR.mp3");
           is_on=true;
           BR_isPlaying = true;
         }

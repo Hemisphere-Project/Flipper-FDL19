@@ -37,11 +37,13 @@ class BT
 				String filename = "/BT"+String(randomBT)+".mp3";
 				musicPlayer.stopPlaying();
 				musicPlayer.startPlayingFile(filename.c_str());
+        BT_isPlaying = true;
 			}
     }
     // OFF
     if((Tnow-Tlast>OffTime+OnTime)&&(is_on==true)){
 			is_on=false;
+			BT_isPlaying = false;
 			dmx.write(randomBT,0);
 			// NEXT
 			Tlast = Tnow;

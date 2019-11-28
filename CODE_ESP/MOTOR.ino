@@ -50,7 +50,7 @@ class MOTOR
       }
       if(playSound==true){
         playSound = false;
-        if((VWX_isPlaying==false)&&(ABC_isPlaying==false)&&(BR_isPlaying==false)){
+        if((VWX_isPlaying==false)&&(ABC_isPlaying==false)&&(BR_isPlaying==false)&&(BT_isPlaying==false)){
           musicPlayer.stopPlaying();
           musicPlayer.startPlayingFile("/MOTOR.mp3");
         }
