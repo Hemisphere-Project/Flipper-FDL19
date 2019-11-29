@@ -6,7 +6,6 @@
 //MH ET LIVE ESP32 DEVKIT
 #define FLIPPER_VERSION  0.1
 #define DEBUGFLAG
-// #define TESTFLAG
 
 // DEBUG
 #include "debug.h"
@@ -70,7 +69,8 @@ unsigned long Tnow = 0;
 unsigned long TstartTimeline = 0;
 unsigned long timelineDuration = 370000;  // 6'10" = 370000
 
-bool starting = true;
+bool initing = true;
+bool starting = false;
 bool ABC_isPlaying, VWX_isPlaying, BR_isPlaying, BT_isPlaying, No_One_Plays = false;
 
 //////////////////////////////////////////
@@ -101,7 +101,7 @@ void setup() {
   // Set volume for left, right channels. lower numbers == louder volume!
   musicPlayer.setVolume(masterVol,masterVol);
   // If DREQ is on an interrupt pin we can do background audio playing
-  musicPlayer.useInterrupt(VS1053_FILEPLAYER_PIN_INT);  // DREQ int
+  // musicPlayer.useInterrupt(VS1053_FILEPLAYER_PIN_INT);  // DREQ int
 
 
 	// DMX
@@ -127,21 +127,27 @@ void loop() {
 
 	Tnow = millis();
 
-	#ifdef TESTFLAG
-		testAll();
-		return;
-	#endif
-
-	// RELOOP
-	if((starting==true)||(Tnow-TstartTimeline>timelineDuration)){
+	// INIT
+	if((initing==true)||(Tnow-TstartTimeline>timelineDuration)){
 		LOG("RELOOP");
 		TstartTimeline = millis();
-		starting = false;
+		initing = false;
+		No_One_Plays = false;
 		VWX_restart();
 		BT_restart();
 		BR_restart();
 		ABC_restart();
 		T_restart();
+		starter_restart();
+	}
+
+	// STARTER
+	if(Tnow-TstartTimeline<16000){
+		starter_update();
+		ABC_update();	// Commencer à dérouler l'action ABC, sinon pas le temps de la finir avant la 1ere minute
+		musicPlayer.feedBuffer();
+		dmx.update();
+		return;
 	}
 
 	// END - FADE OUT
@@ -160,11 +166,9 @@ void loop() {
 	BR_update();
 	ABC_update();
 	T_update();
-	MOTOR_update();
 	rpi_Update();
-
-
-	if((Tnow-TstartTimeline>15000)&&(Tnow-TstartTimeline<60000)){
+	// NORMAL - BT EVOL
+	if((Tnow-TstartTimeline>16000)&&(Tnow-TstartTimeline<60000)){
 		BT_update(300,4000);
 	}
 	else if((Tnow-TstartTimeline>60000)&&(Tnow-TstartTimeline<249000)){
@@ -175,11 +179,21 @@ void loop() {
 	}
 	else if((Tnow-TstartTimeline>342000)&&(Tnow-TstartTimeline<360000)){
 		BT_update(200,800);
+		No_One_Plays = true;
 	}else{
 		BT_forceOff();
 	}
+	// NORMAL - MOTOR EVOL
+	if((Tnow-TstartTimeline>18000)&&(Tnow-TstartTimeline<342000)){
+		MOTOR_update(7000);
+	}
+	else if((Tnow-TstartTimeline>342000)&&(Tnow-TstartTimeline<360000)){
+		MOTOR_update(3000);
+	}
 
 
+	// GLOBALS
+	musicPlayer.feedBuffer();
 	dmx.update();
 
 

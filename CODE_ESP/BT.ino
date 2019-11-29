@@ -33,7 +33,7 @@ class BT
     if((Tnow-Tlast>OffTime)&&(is_on==false)){
 			is_on=true;
 			dmx.write(randomBT,masterBT);
-			if((VWX_isPlaying==false)&&(ABC_isPlaying==false)&&(BR_isPlaying==false)){
+			if((VWX_isPlaying==false)&&(ABC_isPlaying==false)&&(BR_isPlaying==false)&&(No_One_Plays==false)){
 				String filename = "/BT"+String(randomBT)+".mp3";
 				musicPlayer.stopPlaying();
 				musicPlayer.startPlayingFile(filename.c_str());

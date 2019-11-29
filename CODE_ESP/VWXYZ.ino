@@ -2,7 +2,7 @@
 /////////////      VWX     ///////////////
 //////////////////////////////////////////
 
-int VWX_Actions[ 11 ] = { 30000, 90000, 150000, 210000, 270000, 330000, 342000, 346000, 349000, 352000, 355000 };
+int VWX_Actions[ 11 ] = { 30000, 90000, 150000, 210000, 270000, 330000, 342000, 345000, 348000, 351000, 354000 };
 // int VWX_Actions[ 5 ] = { 4000, 10000, 18000, 25000, 32000};
 
 
@@ -61,6 +61,7 @@ class VWX
 			actionIndex++;
 			is_on = false;
 			VWX_isPlaying = false;
+			for (size_t i = 0; i < sizeof(VWX_Adresses)/sizeof(int); i++) {dmx.write(VWX_Adresses[i], masterVWX); }
 		}
 
   }
