@@ -71,7 +71,7 @@ unsigned long TstartTimeline = 0;
 unsigned long timelineDuration = 370000;  // 6'10" = 370000
 
 bool starting = true;
-bool ABC_isPlaying, VWX_isPlaying, BR_isPlaying, BT_isPlaying, No_One_Plays, = false;
+bool ABC_isPlaying, VWX_isPlaying, BR_isPlaying, BT_isPlaying, No_One_Plays = false;
 
 //////////////////////////////////////////
 /////////////     SETUP    ///////////////
@@ -163,17 +163,18 @@ void loop() {
 	MOTOR_update();
 	rpi_Update();
 
-	// if((Tnow-TstartTimeline>100)&&(Tnow-TstartTimeline<10000)){
-	// 	BT_update(300,4000);
-	// }
-	if((Tnow-TstartTimeline>15000)&&(Tnow-TstartTimeline<249000)){
+
+	if((Tnow-TstartTimeline>15000)&&(Tnow-TstartTimeline<60000)){
 		BT_update(300,4000);
+	}
+	else if((Tnow-TstartTimeline>60000)&&(Tnow-TstartTimeline<249000)){
+		BT_update(300,2000);
 	}
 	else if((Tnow-TstartTimeline>267000)&&(Tnow-TstartTimeline<342000)){
-		BT_update(300,4000);
+		BT_update(300,1500);
 	}
 	else if((Tnow-TstartTimeline>342000)&&(Tnow-TstartTimeline<360000)){
-		BT_update(200,1000);
+		BT_update(200,800);
 	}else{
 		BT_forceOff();
 	}

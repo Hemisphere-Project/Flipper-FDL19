@@ -59,8 +59,8 @@ class ABC
 			// ACTION steps
 			if(Tnow-TlastStep>stepLength){
 				// Serial.print("action "); LOG(actionIndex); Serial.print("step "); LOG(step);
-				dmx.write(ABC_Adresses[step], 0);
 				step++;
+				dmx.write(ABC_Adresses[step], 0);
 				TlastStep = Tnow;
 				// END OF ACTION
 				if(step==sizeof(ABC_Adresses)/sizeof(int)){

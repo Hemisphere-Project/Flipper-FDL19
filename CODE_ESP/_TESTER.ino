@@ -7,11 +7,8 @@ void testAll(){
 
   // ALL OFF
   for (size_t i = 0; i < 128; i++) { dmx.write(i,0); }
-
   delay(1000);
   pushData();
-
-
 
   // ABC
   musicPlayer.stopPlaying();
@@ -19,9 +16,9 @@ void testAll(){
   for (size_t i = 0; i < sizeof(ABC_Adresses)/sizeof(int); i++) {
     dmx.write(ABC_Adresses[i], master);
     dmx.update(); pushData();
-    delay(200);
+    delay(40);
   }
-  delay(1000);
+  delay(200);
 
   // BT
   for (size_t i = 0; i < sizeof(BT_Adresses)/sizeof(int); i++) {
@@ -30,9 +27,9 @@ void testAll(){
     musicPlayer.startPlayingFile(filename.c_str());
     dmx.write(BT_Adresses[i], master);
     dmx.update(); pushData();
-    delay(500);
+    delay(1000);
   }
-  delay(1000);
+  delay(200);
 
   // BR
   for (size_t i = 0; i < sizeof(BR_Adresses)/sizeof(int); i++) {
@@ -42,7 +39,7 @@ void testAll(){
     dmx.update(); pushData();
     delay(1500);
   }
-  delay(1000);
+  delay(200);
 
   // VWX
   musicPlayer.stopPlaying();
@@ -50,34 +47,31 @@ void testAll(){
   for (size_t i = 0; i < sizeof(VWX_Adresses)/sizeof(int); i++) {
     dmx.write(VWX_Adresses[i], master);
     dmx.update(); pushData();
-    delay(200);
+    delay(130);
   }
-  delay(1000);
+  delay(500);
 
   for (size_t i = 0; i < sizeof(T_Adresses)/sizeof(int); i++) {
     dmx.write(T_Adresses[i], master);
     dmx.update(); pushData();
     delay(50);
   }
-  delay(1000);
+  delay(200);
 
-  for (pos = 0; pos <= 40; pos += 2) { // goes from 0 degrees to 180 degrees
-    myservo.write(pos);    // tell servo to go to position in variable 'pos'
-    delay(15);             // waits 15ms for the servo to reach the position
-  }
-  for (pos = 40; pos >= 0; pos -= 2) { // goes from 180 degrees to 0 degrees
-    myservo.write(pos);    // tell servo to go to position in variable 'pos'
-    delay(15);             // waits 15ms for the servo to reach the position
-  }
-
-
-  delay(2000);
+  // for (pos = 0; pos <= 40; pos += 2) { // goes from 0 degrees to 180 degrees
+  //   myservo.write(pos);    // tell servo to go to position in variable 'pos'
+  //   delay(15);             // waits 15ms for the servo to reach the position
+  // }
+  // for (pos = 40; pos >= 0; pos -= 2) { // goes from 180 degrees to 0 degrees
+  //   myservo.write(pos);    // tell servo to go to position in variable 'pos'
+  //   delay(15);             // waits 15ms for the servo to reach the position
+  // }
 
 }
 
 void pushData(){
-  for (size_t i = 0; i < 40; i++) {
-    dmx.write(100, 0);
-    dmx.update();
-  }
+  // for (size_t i = 0; i < 40; i++) {
+  //   dmx.write(100, 0);
+  //   dmx.update();
+  // }
 }
