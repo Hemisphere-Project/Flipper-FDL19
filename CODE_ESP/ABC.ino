@@ -47,12 +47,10 @@ class ABC
 		if((Tnow-TstartTimeline>ABC_Actions[actionIndex])&&(Tnow-TstartTimeline<ABC_Actions[actionIndex]+actionLength)){
 			// ONCE
 			if(is_on==false){
-				LOG("ON ABC");
 				if(starting!=true){
 					for (size_t i = 0; i < sizeof(ABC_Adresses)/sizeof(int); i++) { dmx.write(ABC_Adresses[i], masterABC); }
 				}
 				if(actionIndex!=0){
-					LOG("PLAY ABC");
 					musicPlayer.stopPlaying();
 					musicPlayer.startPlayingFile("/RESET_PASTILLES.mp3");
 					ABC_isPlaying=true;
@@ -66,7 +64,7 @@ class ABC
 			}
 			// ACTION steps
 			if(Tnow-TlastStep>stepLength){
-				LOGINL("ABC action "); LOG(actionIndex); LOGINL("step "); LOG(step);
+				// LOGINL("ABC action "); LOG(actionIndex); LOGINL("step "); LOG(step);
 				if(starting!=true){
 					dmx.write(ABC_Adresses[step-1], 0);
 				}
@@ -74,7 +72,6 @@ class ABC
 				TlastStep = Tnow;
 				// END OF ACTION
 				if(step==sizeof(ABC_Adresses)/sizeof(int)+1){
-					LOG("ABC end of action");
 					is_on = false;
 					actionIndex++;
 					// if(actionIndex<(sizeof(ABC_Actions)/sizeof(int) - 1)){ actionIndex++;} else allActionsDone = true;

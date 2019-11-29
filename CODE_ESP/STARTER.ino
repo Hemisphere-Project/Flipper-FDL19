@@ -80,13 +80,6 @@ void starter_update(){
 			for (size_t i = 0; i < sizeof(BR_Adresses)/sizeof(int); i++) { dmx.write(BR_Adresses[i], 0); }
 			for (size_t i = 0; i < sizeof(BT_Adresses)/sizeof(int); i++) { dmx.write(BT_Adresses[i], 0); }
       starting = false;
-			// for (size_t i = 0; i < sizeof(VWX_Adresses)/sizeof(int); i++) { dmx.write(VWX_Adresses[i], 0); }
-			// for (size_t i = 0; i < sizeof(T_Adresses)/sizeof(int); i++) { dmx.write(T_Adresses[i], 0); }
-      // VWX_restart();
-      // BT_restart();
-      // BR_restart();
-      // ABC_restart();
-      // T_restart();
     }
 
     TlastStep = Tnow;
